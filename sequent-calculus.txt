@@ -1,0 +1,41 @@
+Ix = x : Q
+     x : Q
+I      : Q -> Q
+
+Kxy = x : Q
+      x : Q
+      y : P
+Kx      : P -> Q
+K       : Q -> (P -> Q)
+
+Bxyz = x[y[z]] : Q
+         y[z]  : P
+           z   : R
+         y     : R -> P       
+       x       : P -> Q
+Bxy            : R -> Q
+Bx             : R -> P -> (R -> Q)
+B              : P -> Q -> (R -> P -> (R -> Q))
+
+Cxyz = x[z y] : Q
+           y  : P
+         z    : R  
+       x      : R -> (P -> Q)
+Cxy           : R -> Q
+Cx            : P -> (R -> Q)
+C             : R -> (P -> Q) -> (P -> (R -> Q))
+
+Wxy = x[y y] : Q
+          y  : P
+      x      : P -> (P -> Q)
+Wx           : P -> Q
+W            : P -> (P -> Q) -> (P -> Q)
+
+Sxyz = x[z y[z]] : Q
+           y[z]  : P
+             z   : R
+           y     : R -> P
+       x         : R -> (P -> Q)
+Sxy              : R -> Q
+Sx               : R -> P -> (R -> Q)
+S                : P -> Q -> (R -> P -> (R -> Q))
