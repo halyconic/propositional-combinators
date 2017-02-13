@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{bussproofs}
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+% This is the "centered" symbol
+\def\fCenter{{\mbox{\Large$\rightarrow$}}}
+
+% Optional to turn on the short abbreviations
+\EnableBpAbbreviations
+
+% \alwaysRootAtTop  % makes proofs upside down
+% \alwaysRootAtBottom % -- this is the default setting
+
+\begin{document}
+\thispagestyle{empty}
+
+Step 0:
+\begin{prooftree}
+\AxiomC{$\ ; \ \vdash u : ((P \to Q) \to P) \to P$}
+\end{prooftree}
+
+Step 1:
+\begin{prooftree}
+\AxiomC{$x : (P \to Q) \to P \ ; \ \vdash u : P$}
+\RightLabel{$(I_{R})$}
+\UnaryInfC{$\ ; \ \vdash \lambda x.u : ((P \to Q) \to P) \to P$}
+\end{prooftree}
+
+Step 2:
+\begin{prooftree}
+\def\fCenter{\ \vdash\ }
+\Axiom$x : (P \to Q) \to P \ ; \ . : (P \to Q) \to P \fCenter (. l) : P$
+\RightLabel{$(Cont)$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (x l) : P$
+\RightLabel{$(I_{R})$}
+\UnaryInf$\ ; \ \fCenter \lambda x.(x l) : ((P \to Q) \to P) \to P$
+\end{prooftree}
+
+Step 3:
+\begin{prooftree}
+\def\fCenter{\ \vdash\ }
+\Axiom$x : (P \to Q) \to P \ ; \fCenter l1 : P \to Q$
+\Axiom$x : (P \to Q) \to P \ ; \ . : P \fCenter (. l2) : P$
+\RightLabel{$(I_{L})$}
+\BinaryInf$x : (P \to Q) \to P \ ; \ . : (P \to Q) \to P \fCenter (. [l1 l2]) : P$
+\RightLabel{$(Cont)$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (x [l1 l2]) : P$
+\RightLabel{$(I_{R})$}
+\UnaryInf$\ ; \ \fCenter \lambda x.(x [l1 l2]) : ((P \to Q) \to P) \to P$
+\end{prooftree}
+
+Step 4:
+\begin{prooftree}
+\def\fCenter{\ \vdash\ }
+\Axiom$x : (P \to Q) \to P , y : P \ ; \ \fCenter u : Q$
+\RightLabel{$(I_{R})$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (y u) : P \to Q$
+\AxiomC{}
+\RightLabel{$(Ax)$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ . : P \fCenter (. []) : P$
+\RightLabel{$(I_{L})$}
+\BinaryInf$x : (P \to Q) \to P \ ; \ . : (P \to Q) \to P \fCenter (. [(y u) []]) : P$
+\RightLabel{$(Cont)$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (x [(y u) []]) : P$
+\RightLabel{$(I_{R})$}
+\UnaryInf$\ ; \ \fCenter \lambda x.(x [(y u) []]) : ((P \to Q) \to P) \to P$
+\end{prooftree}
+
+\end{document}
