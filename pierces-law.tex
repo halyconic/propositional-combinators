@@ -2,6 +2,7 @@
 \usepackage{bussproofs}
 \usepackage{amssymb}
 \usepackage{latexsym}
+\usepackage{pdflscape}
 
 % This is the "centered" symbol
 \def\fCenter{{\mbox{\Large$\rightarrow$}}}
@@ -14,6 +15,8 @@
 
 \begin{document}
 \thispagestyle{empty}
+
+\begin{landscape}
 
 Step 0:
 \begin{prooftree}
@@ -55,16 +58,37 @@ Step 4:
 \def\fCenter{\ \vdash\ }
 \Axiom$x : (P \to Q) \to P , y : P \ ; \ \fCenter u : Q$
 \RightLabel{$(I_{R})$}
-\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (y u) : P \to Q$
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (\lambda y. u) : P \to Q$
 \AxiomC{}
 \RightLabel{$(Ax)$}
 \UnaryInf$x : (P \to Q) \to P \ ; \ . : P \fCenter (. []) : P$
 \RightLabel{$(I_{L})$}
-\BinaryInf$x : (P \to Q) \to P \ ; \ . : (P \to Q) \to P \fCenter (. [(y u) []]) : P$
+\BinaryInf$x : (P \to Q) \to P \ ; \ . : (P \to Q) \to P \fCenter (. [(\lambda y. u) []]) : P$
 \RightLabel{$(Cont)$}
-\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (x [(y u) []]) : P$
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (x [(\lambda y. u) []]) : P$
 \RightLabel{$(I_{R})$}
-\UnaryInf$\ ; \ \fCenter \lambda x.(x [(y u) []]) : ((P \to Q) \to P) \to P$
+\UnaryInf$\ ; \ \fCenter \lambda x.(\ x [(\lambda y. u) []]) : ((P \to Q) \to P) \to P$
 \end{prooftree}
+
+Step 5:
+\begin{prooftree}
+\def\fCenter{\ \vdash\ }
+\Axiom$x : (P \to Q) \to P , y : P \ ; \ . : P \fCenter (. u) : Q$
+\RightLabel{$(Cont)$}
+\UnaryInf$x : (P \to Q) \to P , y : P \ ; \ \fCenter (y u) : Q$
+\RightLabel{$(I_{R})$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (\lambda y. (y u)) : P \to Q$
+\AxiomC{}
+\RightLabel{$(Ax)$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ . : P \fCenter (. []) : P$
+\RightLabel{$(I_{L})$}
+\BinaryInf$x : (P \to Q) \to P \ ; \ . : (P \to Q) \to P \fCenter (. [(\lambda y. (y u)) []]) : P$
+\RightLabel{$(Cont)$}
+\UnaryInf$x : (P \to Q) \to P \ ; \ \fCenter (x [(\lambda y. (y u)) []]) : P$
+\RightLabel{$(I_{R})$}
+\UnaryInf$\ ; \ \fCenter \lambda x.(\ x [(\lambda y. (y u)) []]) : ((P \to Q) \to P) \to P$
+\end{prooftree}
+
+\end{landscape}
 
 \end{document}
